@@ -1,0 +1,85 @@
+/* HEALTH DASHBOARD - MASTER STYLES */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #121212; /* Dark theme to match your screenshot */
+  margin: 0;
+  color: #e0e0e0; 
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(135deg, #1b5e20, #2e7d32);
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+nav {
+  text-align: center;
+  background: #1e1e1e;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #66bb6a;
+  font-weight: 600;
+}
+
+.dashboard { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+.dash-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.dash-card {
+  background: #1e1e1e; 
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  border: 1px solid #333;
+}
+
+/* --- NEW GAME & RELAX COMPONENTS --- */
+.bubble-wrap { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; justify-content: center; margin-top: 10px; }
+.bubble { 
+    width: 25px; height: 25px; background: rgba(255,255,255,0.1); 
+    border-radius: 50%; border: 1px solid #4caf50; cursor: pointer; 
+}
+.bubble.popped { background: transparent; border: 1px dashed #444; pointer-events: none; }
+
+.hex-grid { font-size: 2rem; color: #66bb6a; cursor: pointer; }
+.hex-cell { display: inline-block; transition: transform 0.3s; margin: 2px; }
+
+.breath-container {
+  width: 80px; height: 80px;
+  background: #29b6f6;
+  border-radius: 50%;
+  margin: 20px auto;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 3s ease-in-out;
+}
+.breathing-active { transform: scale(1.6); background: #66bb6a !important; }
+
+/* Result Box */
+.result-box {
+  background: #263238; padding: 15px; border-radius: 10px; margin-top: 10px;
+  border-left: 4px solid #66bb6a; text-align: left; font-size: 0.9rem;
+}
+
+button {
+  background: #4caf50; color: white; border: none; padding: 8px 15px;
+  border-radius: 8px; cursor: pointer; margin: 5px; font-weight: 600;
+}
+button:hover { background: #388e3c; }
+
+.chart-container { background: #1e1e1e; padding: 20px; border-radius: 15px; height: 300px; margin: 20px 0; }
