@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Health System | Home</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<header>
+  <h1>Health & Well-being Hub</h1>
+  <p id="userGreeting">Welcome, Guest! ✨</p>
+</header>
+
+<nav>
+  <a href="index.html" style="color: #1b5e20;">Home</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="tracker.html">Habit Tracker</a>
+  <a href="registration.html" onclick="localStorage.clear()">Logout</a>
+</nav>
+
+<section class="dashboard">
+  <div style="text-align: center; padding: 40px 20px;">
+    <h2 style="font-size: 2.2rem; color: #2e7d32;">How can we help you today?</h2>
+    <p style="color: #666;">Select a department below to manage your health.</p>
+  </div>
+
+  <div class="dash-cards">
+    <div class="dash-card">
+      <div style="font-size: 3rem; margin-bottom: 15px;">🧠</div>
+      <h3>Mental Wellness</h3>
+      <p>Play brain games, journal your mood, and use the symptom analyzer.</p>
+      <button onclick="window.location.href='dashboard.html'">Enter Dashboard</button>
+    </div>
+
+    <div class="dash-card">
+      <div style="font-size: 3rem; margin-bottom: 15px;">🏃</div>
+      <h3>Habit Tracker</h3>
+      <p>Log your water intake, exercise minutes, and sleep cycles.</p>
+      <button onclick="window.location.href='tracker.html'" style="background: #0288d1;">Open Tracker</button>
+    </div>
+
+    <div class="dash-card">
+      <div style="font-size: 3rem; margin-bottom: 15px;">🚑</div>
+      <h3>Emergency SOS</h3>
+      <p>In case of emergency, send your location to local services.</p>
+      <button onclick="sendEmergency()" style="background: #d32f2f;">Send Alert</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Smart Health Project | Supporting SDG-3</p>
+</footer>
+
+<script>
+  // PERSONALIZATION
+  const name = localStorage.getItem("username") || "Guest";
+  document.getElementById("userGreeting").innerText = "Welcome back, " + name + "! ✨";
+
+  function sendEmergency() {
+    if (confirm("Send emergency alert with your current location?")) {
+      navigator.geolocation.getCurrentPosition(p => {
+        alert("SOS SENT! \nLat: " + p.coords.latitude + "\nLong: " + p.coords.longitude);
+      }, () => {
+        alert("Emergency alert sent! (GPS turned off)");
+      });
+    }
+  }
+</script>
+
+</body>
+</html>
