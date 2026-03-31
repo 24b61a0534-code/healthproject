@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Habit Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body class="tracker-page">
+<header><h1>Daily Habit Tracker</h1></header>
+<nav><a href="dashboard.html">Dashboard</a><a href="login.html">Logout</a></nav>
+
+<section class="dashboard">
+  <h2 style="text-align: center; margin-top: 20px;">Your Daily Goals 🎯</h2>
+
+  <div class="dash-cards">
+    <div class="dash-card" id="waterCard">
+      <h3>💧 Water</h3>
+      <p id="waterDisplay" style="font-size: 1.5rem; font-weight: bold;">0 Glasses</p>
+      <button onclick="changeVal('water', 1)">+</button>
+      <button onclick="changeVal('water', -1)">-</button>
+      <p id="waterMsg" style="font-size: 0.8rem; margin-top:10px;"></p>
+    </div>
+
+    <div class="dash-card" id="exerciseCard">
+      <h3>🏃 Exercise</h3>
+      <p id="exerciseDisplay" style="font-size: 1.5rem; font-weight: bold;">0 Minutes</p>
+      <button onclick="changeVal('exercise', 10)">+</button>
+      <button onclick="changeVal('exercise', -10)">-</button>
+      <p id="exerciseMsg" style="font-size: 0.8rem; margin-top:10px;"></p>
+    </div>
+
+    <div class="dash-card" id="sleepCard">
+      <h3>😴 Sleep</h3>
+      <p id="sleepDisplay" style="font-size: 1.5rem; font-weight: bold;">0 Hours</p>
+      <button onclick="changeVal('sleep', 1)">+</button>
+      <button onclick="changeVal('sleep', -1)">-</button>
+      <p id="sleepMsg" style="font-size: 0.8rem; margin-top:10px;"></p>
+    </div>
+  </div>
+
+  <h2 style="text-align:center;">Visual Progress 📊</h2>
+  <div class="chart-container" style="height: 300px; background: #1e1e1e; border-radius: 15px; padding: 20px;">
+    <canvas id="trackerChart"></canvas>
+  </div>
+</section>
+
+<script>
+let chart;
+const goals = { water: 8, exercise: 30, sleep: 8 };
+
+function updateAll() {
+  const w = parseInt(localStorage.getItem("water") || 0);
+  const e = parseInt(localStorage.getItem("exercise") || 0);
+  const s = parseInt(localStorage.getItem("sleep") || 0);
+
+  document.getElementById("waterDisplay").innerText = w + " Glasses";
+  document.getElementById("exerciseDisplay").innerText = e + " Minutes";
+  document.getElementById("sleepDisplay").innerText = s + " Hours";
+
+  checkGoals(w, e, s);
+  renderChart(w, e, s);
+}
+
+function changeVal(key, amt) {
+    let val = parseInt(localStorage.getItem(key) || 0) + amt;
+    if(val < 0) val = 0;
+    localStorage.setItem(key, val);
+    updateAll();
+}
+
+function checkGoals(w, e, s) {
+  if (w >= goals.water && !document.getElementById("waterCard").classList.contains("goal-reached")) {
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      document.getElementById("waterCard").classList.add("goal-reached");
+  }
+  // (Additional logic for other cards follows same pattern...)
+}
+
+function renderChart(w, e, s) {
+  let ctx = document.getElementById("trackerChart").getContext("2d");
+  if(chart) chart.destroy();
+  chart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Water", "Exercise", "Sleep"],
+      datasets: [{ data: [w, e, s], backgroundColor: ['#29b6f6', '#66bb6a', '#ffa726'] }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { 
+        y: { beginAtZero: true, min: 0, max: 100, ticks: { stepSize: 10, color: '#aaa' } }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+window.onload = updateAll;
+</script>
+</body>
+</html>
