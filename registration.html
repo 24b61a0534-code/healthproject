@@ -1,0 +1,155 @@
+!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Health App | Join Us</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+
+    body { 
+
+      display: flex; align-items: center; justify-content: center; height: 100vh; 
+
+      background: linear-gradient(135deg, #2e7d32, #a5d6a7); margin: 0;
+
+    }
+
+    .auth-box { 
+
+      background: white; padding: 40px; border-radius: 30px; 
+
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2); width: 90%; max-width: 400px; text-align: center; 
+
+    }
+
+    .auth-box h2 { color: #2e7d32; margin-bottom: 20px; font-size: 1.8rem; }
+
+    .auth-box input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; }
+
+    .auth-box button { width: 100%; padding: 15px; margin-top: 10px; font-size: 1rem; }
+
+    .toggle-text { margin-top: 20px; font-size: 0.9rem; color: #666; }
+
+    .toggle-text span { color: #2e7d32; font-weight: bold; cursor: pointer; text-decoration: underline; }
+
+  </style>
+
+</head>
+
+<body>
+
+
+
+<div class="auth-box">
+
+  <div id="registerSection">
+
+    <h2>Create Account 🌿</h2>
+
+    <input type="text" id="regUser" placeholder="Full Name">
+
+    <input type="password" id="regPass" placeholder="Set Password">
+
+    <button onclick="handleRegister()">Register Now</button>
+
+    <p class="toggle-text">Already a member? <span onclick="toggleAuth()">Login here</span></p>
+
+  </div>
+
+
+
+  <div id="loginSection" style="display:none;">
+
+    <h2>Welcome Back 👋</h2>
+
+    <input type="text" id="loginUser" placeholder="Username">
+
+    <input type="password" id="loginPass" placeholder="Password">
+
+    <button onclick="handleLogin()" style="background: #0288d1;">Login</button>
+
+    <p id="loginError" style="color:red; display:none; font-size:0.8rem; margin-top:10px;">Invalid Credentials!</p>
+
+    <p class="toggle-text">New user? <span onclick="toggleAuth()">Create Account</span></p>
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+  function toggleAuth() {
+
+    const reg = document.getElementById("registerSection");
+
+    const log = document.getElementById("loginSection");
+
+    reg.style.display = reg.style.display === "none" ? "block" : "none";
+
+    log.style.display = log.style.display === "none" ? "block" : "none";
+
+  }
+
+
+
+  function handleRegister() {
+
+    const u = document.getElementById("regUser").value;
+
+    const p = document.getElementById("regPass").value;
+
+    if(u && p) {
+
+      localStorage.setItem("username", u);
+
+      localStorage.setItem("password", p);
+
+      alert("Registration Successful! Please Login.");
+
+      toggleAuth();
+
+    } else { alert("Please fill all fields."); }
+
+  }
+
+
+
+  function handleLogin() {
+
+    const u = document.getElementById("loginUser").value;
+
+    const p = document.getElementById("loginPass").value;
+
+    const savedU = localStorage.getItem("username");
+
+    const savedP = localStorage.getItem("password");
+
+
+
+    if(u === savedU && p === savedP) {
+
+      window.location.href = "index.html"; // Go to Home
+
+    } else {
+
+      document.getElementById("loginError").style.display = "block";
+
+    }
+
+  }
+
+</script>
+  
+</body>
+  
+</html>
